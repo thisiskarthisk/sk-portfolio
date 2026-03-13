@@ -994,6 +994,7 @@ document.querySelectorAll('.sk-card').forEach((c,i) => c.style.transitionDelay =
 document.querySelectorAll('.proj-card').forEach((c,i) => c.style.transitionDelay = (i*.08)+'s');
 document.querySelectorAll('.cert-card').forEach((c,i) => c.style.transitionDelay = (i*.1)+'s');
 
+
 const roles = [
   "Full Stack Developer",
   "Web Developer"
@@ -1001,33 +1002,34 @@ const roles = [
 
 let i = 0;
 let j = 0;
-let current = "";
 let isDeleting = false;
 
-function type(){
+function type() {
 
   const typing = document.querySelector(".typing");
+  const current = roles[i];
 
-  current = roles[i];
-
-  if(isDeleting){
-    typing.textContent = current.substring(0,j--);
-  }else{
-    typing.textContent = current.substring(0,j++);
+  if (!isDeleting) {
+    j++;
+    typing.textContent = current.substring(0, j);
+  } 
+  else {
+    j--;
+    typing.textContent = current.substring(0, j);
   }
 
-  if(!isDeleting && j === current.length){
+  if (!isDeleting && j === current.length) {
     isDeleting = true;
-    setTimeout(type,1200);
+    setTimeout(type, 1500);
     return;
   }
 
-  if(isDeleting && j === 0){
+  if (isDeleting && j === 0) {
     isDeleting = false;
     i = (i + 1) % roles.length;
   }
 
-  setTimeout(type,isDeleting ? 60 : 120);
+  setTimeout(type, isDeleting ? 60 : 120);
 }
 
 type();
